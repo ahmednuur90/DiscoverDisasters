@@ -1,0 +1,53 @@
+h1{
+    text-align: center;
+    font-family: "Tahoma";
+    color: #006d77;
+
+
+}
+
+body{
+    background-color: #EDF6F9;
+}
+
+.search{
+    position: absolute;
+    top: 40%;
+    left: 35%;
+    width: 600px;
+}
+
+.search input[type = "text"]{
+    display: block;
+    margin: 20px auto;
+    border-radius: 25px;
+    width: 600px;
+    height: 45px;
+    font-family: Tahoma;
+    text-align: center;
+    border: 2px solid #83c5be;
+    transition: 0.25s;
+}
+
+.searchButton{
+    border: 0;
+    width: 150px;
+    height: 30px;
+    margin: 20px auto;
+    position: absolute;
+    top: 55%;
+    left: 46%;
+    border-radius: 25px;
+    cursor: pointer;
+    background-color: #83c5be;
+    color: white;
+}
+
+.search input[type="text"]:focus{
+    width: 800px;
+    border: 2px #006d77;
+}
+
+.searchButton:hover{
+    background-color: #006d77;
+}
