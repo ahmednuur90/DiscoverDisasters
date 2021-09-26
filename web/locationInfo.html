@@ -12,14 +12,9 @@
     <h1 id="mainDisaster" class="title" style="font-size: 60px"></h1>
     <h3 class="amount" style="font-size: 30px" id="amount"></h3>
 
-    <form class="box1">
-        <h3 id="text1">Testing Box</h3>
-        <br>
-    </form>
-
     <div class="imageBox">
         <form class="box2">
-            <img src="drought.jpg" id="image" alt="storm"> <!-- 723 x 482 -->
+            <img id="image" alt="disaster image"> <!-- 723 x 482 -->
         </form>
     </div>
 
@@ -53,8 +48,27 @@
                 document.getElementById("image").src="storm.jpg";
             }
             else if(array[0] === 'volcano'){
-                document.getElementById("image").src="";
+                document.getElementById("image").src="volcano.jpg";
             }
+            else if(array[0] === 'drought'){
+                document.getElementById("image").src="drought.jpg";
+            }
+            else if(array[0] === 'landslide'){
+                document.getElementById("image").src="landslide.jpg";
+            }
+            else if(array[0] === 'flood'){
+                document.getElementById("image").src="flood.jpg";
+            }
+            else if(array[0] === 'earthquake'){
+                document.getElementById("image").src="earthquake.jpg";
+            }
+            else if(array[0] === 'extreme temperatrure'){
+                document.getElementById("image").src="extremeTemp.jpg";
+            }
+            else if(array[0] === 'mass movement'){
+                document.getElementById("image").src="massMovement.jpg";
+            }
+
         }
 
         const textBox = "This is where the other info will go";
