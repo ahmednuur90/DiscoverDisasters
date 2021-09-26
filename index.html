@@ -5,6 +5,7 @@
     <title>Discover Disasters</title>
     <script type="text/javascript" src="eel.js"></script>
     <link rel="stylesheet" href="index.css">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <body>
     <br><br>
@@ -19,7 +20,7 @@
         btn.addEventListener('click', getLocation);
         async function getLocation(){
             const name = document.getElementById("text");
-            
+            window.location.href = 'locationInfo.html';
         }
     </script>
 
