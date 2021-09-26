@@ -43,6 +43,7 @@ def findLatestCountryDisaster(country):
         if line[COUNTRY] == country:
             #print("[" + line[DISASTER] + "] location: [" + line[GEOLOCATION] + "] year: [" + line[YEAR] + "]")
             return line[DISASTER]+","+line[LOCATION]+","+line[YEAR]
+    return "No disaster found for specified country"
 
 def findLocationDisaters(location):
     f.seek(0)
@@ -52,7 +53,7 @@ def findLocationDisaters(location):
         if line[LOCATION] == location:
             disasters.append(line[DISASTER] + "," + line[LOCATION] + "," + line[YEAR])
             #print("[" + line[DISASTER] + "] country: [" + line[GEOLOCATION] + "] year: [" + line[YEAR] + "]")
-            return disasters
+    return disasters
 
 def findLatestLocationDisaster(location):
     f.seek(0)
@@ -61,6 +62,7 @@ def findLatestLocationDisaster(location):
         if line[LOCATION] == location:
             #print("[" + line[DISASTER] + "] location: [" + line[GEOLOCATION] + "] year: [" + line[YEAR] + "]")
             return line[DISASTER]+","+line[COUNTRY]+","+line[YEAR]
+    return "No disaster found for specified location"
 
 def findMostCommonDisasterForLocation(location):
     disasterList = []  # keep track of unique disasters
@@ -82,7 +84,9 @@ def findMostCommonDisasterForLocation(location):
     for count in disasterCountList:  # finding the most common disaster
         if max < count:
             max = count
-    print(max)
+    #print(max)
+    if max == 0:
+        return "No disaster found for specified location"
     return disasterList[disasterCountList.index(max)]+","+str(max)
 
 
@@ -107,6 +111,8 @@ def findMostCommonDisasterForCountry(country):
         if max < count:
             max = count
     #print(max)
+    if max == 0:
+        return "No disaster found for specified country"
     return disasterList[disasterCountList.index(max)]+","+str(max)
 
 
@@ -122,3 +128,10 @@ print("Test Toronto: "+findMostCommonDisasterForLocation("Toronto"))
 
 print(findLatestCountryDisaster("Canada"))
 print(findLatestLocationDisaster("Toronto"))
+
+print(findLatestCountryDisaster("cndeiucvn"))
+print(findLatestLocationDisaster("cndeiucvn"))
+print(findCountryDisasters("cndeiucvn"))
+print(findLocationDisaters("cndeiucvn"))
+print(findMostCommonDisasterForLocation("fbfvbd"))
+print(findMostCommonDisasterForCountry("fbfvbd"))
