@@ -10,12 +10,17 @@
     <br><br>
     <h1 style="font-size: 60px">Discover Disasters</h1>
     <form class="search">
-        <input type="text" id="text" class="text" style="font-size: 20px" placeholder="Search a City or Country">
+        <input type="text" id="text" class="text" style="font-size: 20px" placeholder="Search a City or Country to find their Natural Disasters">
     </form>
-    <button style="font-size: 18px" class="searchButton">Search</button>
+    <button style="font-size: 18px" class="searchButton" id="searchButton">Search</button>
 
     <script type="text/javascript">
-        const name =document.getElementById("text");
+        const btn =document.getElementById("searchButton");
+        btn.addEventListener('click', getLocation);
+        async function getLocation(){
+            const name = document.getElementById("text");
+            
+        }
     </script>
 
 </body>

@@ -1,0 +1,30 @@
+.title{
+    text-align: center;
+    font-family: Tahoma;
+    color: #006d77;;
+}
+
+.box1{
+    width: 500px;
+    height: 300px;
+    padding: 40px;
+    position: absolute;
+    transform: translate(30%, 32%);
+    background: #83c5be;
+    text-align: center;
+}
+
+.box2{
+    width: 500px;
+    height: 350px;
+    padding: 40px;
+    position: absolute;
+    transform: translate(170%, 29%);
+    background: #83c5be;
+    text-align: center;
+}
+
+.imageBox img{
+    width: 500px;
+    height: 350px;
+}
