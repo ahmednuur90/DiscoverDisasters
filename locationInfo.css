@@ -11,7 +11,6 @@
     position: absolute;
     transform: translate(30%, 32%);
     background: #83c5be;
-    text-align: center;
 }
 
 .box2{
@@ -27,4 +26,21 @@
 .imageBox img{
     width: 500px;
     height: 350px;
+}
+
+.backButton{
+    border: 0;
+    width: 150px;
+    height: 30px;
+    margin: 20px auto;
+    position: absolute;
+    border-radius: 25px;
+    cursor: pointer;
+    background-color: #83c5be;
+    color: white;
+    transform: translate(250%, 1800%);
+}
+
+.backButton:hover{
+    background-color: #006d77;
 }
