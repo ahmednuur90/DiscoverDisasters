@@ -1,6 +1,9 @@
 # Reading an excel file using Python
 import csv
+import eel
 
+
+eel.init('web')
 # codes for convenience
 COUNTRY = 1
 COUNTRYCODE = 2
@@ -18,6 +21,7 @@ LONGITUDE = 17
 f = open('DisasterDataSet.csv', encoding="utf8")
 csv_reader_object = csv.reader(f)
 
+
 # Step 2: Make csv reader object
 
 # csv_reader_object = csv.reader(f)
@@ -25,26 +29,31 @@ csv_reader_object = csv.reader(f)
 
 # Step 3: Loop through rows
 
+@eel.expose
 def findCountryDisasters(country):
-    #f = open('DisasterDataSet.csv', encoding="utf8")
+    # f = open('DisasterDataSet.csv', encoding="utf8")
     f.seek(0)
-    #print("Natural Disasters in country of: " + country)
+    # print("Natural Disasters in country of: " + country)
     disasters = []
     for line in csv_reader_object:
         if line[COUNTRY] == country:
-            disasters.append(line[DISASTER]+","+line[LOCATION]+","+line[YEAR])
-            #print("[" + line[DISASTER] + "] location: [" + line[GEOLOCATION] + "] year: [" + line[YEAR] + "]")
+            disasters.append(line[DISASTER] + "," + line[LOCATION] + "," + line[YEAR])
+            # print("[" + line[DISASTER] + "] location: [" + line[GEOLOCATION] + "] year: [" + line[YEAR] + "]")
     return disasters
 
+
+@eel.expose
 def findLatestCountryDisaster(country):
     f.seek(0)
     print("Natural Disasters in country of: " + country)
     for line in csv_reader_object:
         if line[COUNTRY] == country:
-            #print("[" + line[DISASTER] + "] location: [" + line[GEOLOCATION] + "] year: [" + line[YEAR] + "]")
-            return line[DISASTER]+","+line[LOCATION]+","+line[YEAR]
+            # print("[" + line[DISASTER] + "] location: [" + line[GEOLOCATION] + "] year: [" + line[YEAR] + "]")
+            return line[DISASTER] + "," + line[LOCATION] + "," + line[YEAR]
     return "No disaster found for specified country"
 
+
+@eel.expose
 def findLocationDisaters(location):
     f.seek(0)
     print("Natural Disasters in location of: " + location)
@@ -52,18 +61,22 @@ def findLocationDisaters(location):
         disasters = []
         if line[LOCATION] == location:
             disasters.append(line[DISASTER] + "," + line[LOCATION] + "," + line[YEAR])
-            #print("[" + line[DISASTER] + "] country: [" + line[GEOLOCATION] + "] year: [" + line[YEAR] + "]")
+            # print("[" + line[DISASTER] + "] country: [" + line[GEOLOCATION] + "] year: [" + line[YEAR] + "]")
     return disasters
 
+
+@eel.expose
 def findLatestLocationDisaster(location):
     f.seek(0)
     print("Natural Disasters in location of: " + location)
     for line in csv_reader_object:
         if line[LOCATION] == location:
-            #print("[" + line[DISASTER] + "] location: [" + line[GEOLOCATION] + "] year: [" + line[YEAR] + "]")
-            return line[DISASTER]+","+line[COUNTRY]+","+line[YEAR]
+            # print("[" + line[DISASTER] + "] location: [" + line[GEOLOCATION] + "] year: [" + line[YEAR] + "]")
+            return line[DISASTER] + "," + line[COUNTRY] + "," + line[YEAR]
     return "No disaster found for specified location"
 
+
+@eel.expose
 def findMostCommonDisasterForLocation(location):
     disasterList = []  # keep track of unique disasters
     disasterCountList = []  # keep track of disaster counts
@@ -84,12 +97,13 @@ def findMostCommonDisasterForLocation(location):
     for count in disasterCountList:  # finding the most common disaster
         if max < count:
             max = count
-    #print(max)
+    # print(max)
     if max == 0:
         return "No disaster found for specified location"
-    return disasterList[disasterCountList.index(max)]+","+str(max)
+    return disasterList[disasterCountList.index(max)] + "," + str(max)
 
 
+@eel.expose
 def findMostCommonDisasterForCountry(country):
     disasterList = []  # keep track of unique disasters
     disasterCountList = []  # keep track of disaster counts
@@ -110,21 +124,23 @@ def findMostCommonDisasterForCountry(country):
     for count in disasterCountList:  # finding the most common disaster
         if max < count:
             max = count
-    #print(max)
+    # print(max)
     if max == 0:
         return "No disaster found for specified country"
-    return disasterList[disasterCountList.index(max)]+","+str(max)
+    return disasterList[disasterCountList.index(max)] + "," + str(max)
 
 
-#findLocationDisaters("Toronto")
+eel.start('index.html')
+
+# findLocationDisaters("Toronto")
 print()
 print(findCountryDisasters("Canada"))
-print("Test: "+findMostCommonDisasterForCountry("Canada"))
-print("Test: "+findMostCommonDisasterForCountry("Japan"))
-print("Test: "+findMostCommonDisasterForCountry("Iraq"))
-print("Test: "+findMostCommonDisasterForCountry("Afghanistan"))
-print("Test: "+findMostCommonDisasterForCountry("Poland"))
-print("Test Toronto: "+findMostCommonDisasterForLocation("Toronto"))
+print("Test: " + findMostCommonDisasterForCountry("Canada"))
+print("Test: " + findMostCommonDisasterForCountry("Japan"))
+print("Test: " + findMostCommonDisasterForCountry("Iraq"))
+print("Test: " + findMostCommonDisasterForCountry("Afghanistan"))
+print("Test: " + findMostCommonDisasterForCountry("Poland"))
+print("Test Toronto: " + findMostCommonDisasterForLocation("Toronto"))
 
 print(findLatestCountryDisaster("Canada"))
 print(findLatestLocationDisaster("Toronto"))
