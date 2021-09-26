@@ -16,7 +16,7 @@ LATITUDE = 16
 LONGITUDE = 17
 
 f = open('DisasterDataSet.csv', encoding="utf8")
-
+csv_reader_object = csv.reader(f)
 
 # Step 2: Make csv reader object
 
@@ -26,35 +26,49 @@ f = open('DisasterDataSet.csv', encoding="utf8")
 # Step 3: Loop through rows
 
 def findCountryDisasters(country):
-    f = open('DisasterDataSet.csv', encoding="utf8")
-    csv_reader_object = csv.reader(f)
+    #f = open('DisasterDataSet.csv', encoding="utf8")
+    f.seek(0)
+    #print("Natural Disasters in country of: " + country)
+    disasters = []
+    for line in csv_reader_object:
+        if line[COUNTRY] == country:
+            disasters.append(line[DISASTER]+","+line[LOCATION]+","+line[YEAR])
+            #print("[" + line[DISASTER] + "] location: [" + line[GEOLOCATION] + "] year: [" + line[YEAR] + "]")
+    return disasters
+
+def findLatestCountryDisaster(country):
+    f.seek(0)
     print("Natural Disasters in country of: " + country)
     for line in csv_reader_object:
-        if line[1] == country:
-            print("[" + line[14] + "] location: [" + line[6] + "] year: [" + line[4] + "]")
-
+        if line[COUNTRY] == country:
+            #print("[" + line[DISASTER] + "] location: [" + line[GEOLOCATION] + "] year: [" + line[YEAR] + "]")
+            return line[DISASTER]+","+line[LOCATION]+","+line[YEAR]
 
 def findLocationDisaters(location):
-    f = open('DisasterDataSet.csv', encoding="utf8")
-    csv_reader_object = csv.reader(f)
+    f.seek(0)
     print("Natural Disasters in location of: " + location)
     for line in csv_reader_object:
-        if line[6] == location:
-            print("[" + line[14] + "] country: [" + line[1] + "] year: [" + line[4] + "]")
+        disasters = []
+        if line[LOCATION] == location:
+            disasters.append(line[DISASTER] + "," + line[LOCATION] + "," + line[YEAR])
+            #print("[" + line[DISASTER] + "] country: [" + line[GEOLOCATION] + "] year: [" + line[YEAR] + "]")
+            return disasters
 
+def findLatestLocationDisaster(location):
+    f.seek(0)
+    print("Natural Disasters in location of: " + location)
+    for line in csv_reader_object:
+        if line[LOCATION] == location:
+            #print("[" + line[DISASTER] + "] location: [" + line[GEOLOCATION] + "] year: [" + line[YEAR] + "]")
+            return line[DISASTER]+","+line[COUNTRY]+","+line[YEAR]
 
 def findMostCommonDisasterForLocation(location):
-    print()
-
-
-def findMostCommonDisasterForCountry(country):
     disasterList = []  # keep track of unique disasters
     disasterCountList = []  # keep track of disaster counts
-    f = open('DisasterDataSet.csv', encoding="utf8")
-    csv_reader_object = csv.reader(f)
+    f.seek(0)
     # print("Natural Disasters in country of: " + country)
     for line in csv_reader_object:  # go through rows in csv
-        if line[1] == country:
+        if line[LOCATION] == location:
             found = False  # variable to track if disaster is found in disasterList
             for i in range(len(disasterList)):
                 if line[DISASTER] == disasterList[i]:  # if disaster from csv is found in disaster list, increment count
@@ -69,16 +83,42 @@ def findMostCommonDisasterForCountry(country):
         if max < count:
             max = count
     print(max)
-    return disasterList[disasterCountList.index(max)]
+    return disasterList[disasterCountList.index(max)]+","+str(max)
+
+
+def findMostCommonDisasterForCountry(country):
+    disasterList = []  # keep track of unique disasters
+    disasterCountList = []  # keep track of disaster counts
+    f.seek(0)
+    # print("Natural Disasters in country of: " + country)
+    for line in csv_reader_object:  # go through rows in csv
+        if line[COUNTRY] == country:
+            found = False  # variable to track if disaster is found in disasterList
+            for i in range(len(disasterList)):
+                if line[DISASTER] == disasterList[i]:  # if disaster from csv is found in disaster list, increment count
+                    disasterCountList[i] += 1
+                    found = True
+            if not found:  # if not found, add to list
+                disasterList.append(line[DISASTER])
+                disasterCountList.append(1)
+    # finding most common disaster
+    max = 0
+    for count in disasterCountList:  # finding the most common disaster
+        if max < count:
+            max = count
+    #print(max)
+    return disasterList[disasterCountList.index(max)]+","+str(max)
 
 
 #findLocationDisaters("Toronto")
 print()
-#findCountryDisasters("Canada")
+print(findCountryDisasters("Canada"))
 print("Test: "+findMostCommonDisasterForCountry("Canada"))
 print("Test: "+findMostCommonDisasterForCountry("Japan"))
 print("Test: "+findMostCommonDisasterForCountry("Iraq"))
 print("Test: "+findMostCommonDisasterForCountry("Afghanistan"))
 print("Test: "+findMostCommonDisasterForCountry("Poland"))
+print("Test Toronto: "+findMostCommonDisasterForLocation("Toronto"))
 
-findCountryDisasters("Mexico")
+print(findLatestCountryDisaster("Canada"))
+print(findLatestLocationDisaster("Toronto"))
