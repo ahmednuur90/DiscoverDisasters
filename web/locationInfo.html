@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Location Info</title>
+    <script type="text/javascript" src="eel.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" href="locationInfo.css">
+</head>
+<body>
+    <br><br>
+    <h1 id="mainDisaster" class="title" style="font-size: 60px"></h1>
+    <h3 class="amount" style="font-size: 30px" id="amount"></h3>
+
+    <form class="box1">
+        <h3 id="text1">Testing Box</h3>
+        <br>
+    </form>
+
+    <div class="imageBox">
+        <form class="box2">
+            <img src="drought.jpg" id="image" alt="storm"> <!-- 723 x 482 -->
+        </form>
+    </div>
+
+    <button class="backButton" id="backButton" onclick="location.href='index.html'">Back</button>
+
+    <script type="text/javascript">
+        loadPage();
+        async function loadPage(){
+            const local = localStorage.getItem("LOCATION");
+
+            const common  = await eel.findMostCommonDisasterForLocation(local)();
+            const common2 = await eel.findMostCommonDisasterForCountry(local)();
+            let array;
+            if(common === "No disaster found for specified location" && common2 !== "No disaster found for specified country"){
+                array = String(common2).split(",");
+                document.getElementById("mainDisaster").innerHTML = "The most common disaster for " + local + " is " + array[0] + "s";
+                document.getElementById("amount").innerHTML = "Amount: " + array[1];
+            }
+
+            else if(common !== "No disaster found for specified location" && common2 === "No disaster found for specified country"){
+                array = String(common).split(",");
+                document.getElementById("mainDisaster").innerHTML = "The most common disaster for " + local + " is " + array[0] + "s";
+                document.getElementById("amount").innerHTML = "Amount: " + array[1];
+            }
+
+            else{
+                swal("Error", "No Disasters Found for Location/Country!", "error");
+            }
+
+            if(array[0] === 'storm'){
+                document.getElementById("image").src="storm.jpg";
+            }
+            else if(array[0] === 'volcano'){
+                document.getElementById("image").src="";
+            }
+        }
+
+        const textBox = "This is where the other info will go";
+        document.getElementById("text1").innerHTML = textBox;
+
+    </script>
+</body>
+</html>
